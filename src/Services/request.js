@@ -7,7 +7,7 @@ import axios from "axios";
 //     Authorization: `Bearer ${jwt}`
 // },
 
-const base_url = "https://a4ff-118-70-132-104.ngrok-free.app"
+const base_url = "https://edustar-app-demo-5bad83017071.herokuapp.com"
 
 const login_path = "/auth/login"
 
