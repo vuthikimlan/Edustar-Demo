@@ -38,7 +38,7 @@ function Login(props) {
       // className="p-21.6 w-1/2 bg-orange-300 border border-solid border-transparent"
       >
         {/* <img src="../../Assets/Images/EnglishLogo.jpg" alt="" /> */}
-        <img src={pic} alt="" className="w-[50rem] h-[43rem] " />
+        <img src={pic} alt="" className="w-[42rem] h-[38.7rem] " />
       </div>
       <Form
         className="login_form"
@@ -87,7 +87,7 @@ function Login(props) {
             Đăng nhập
           </Button>
         </Form.Item>
-        <Form.Item>
+        {/* <Form.Item>
           <Button
             type="link"
             className="login-form-forgot"
@@ -95,7 +95,7 @@ function Login(props) {
           >
             Quên mật khẩu
           </Button>
-        </Form.Item>
+        </Form.Item> */}
       </Form>
     </div>
   );
