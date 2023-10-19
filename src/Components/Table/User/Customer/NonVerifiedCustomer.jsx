@@ -126,9 +126,10 @@ function NonVerifiedCustomer(props) {
             className="detail"
             icon={<SolutionOutlined />}
             onClick={() => {
-              console.log("drawer");
               setOpenDrawer(true);
-              navigate(`/adminpage/customer/detailcustomer/${record.userId}`);
+              navigate(
+                `/adminpage/nonVerifiedCustomer/detailnonVerifiedCustomer/${record.userId}`
+              );
             }}
           ></Button>
         </Space>
@@ -138,7 +139,7 @@ function NonVerifiedCustomer(props) {
   return (
     <div>
       <PageContainer
-        title="Tất cả khách hàng đã xác thực"
+        title="Tất cả khách hàng chưa xác thực"
         extra={[
           <Space>
             <Button

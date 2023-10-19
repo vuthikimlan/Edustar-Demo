@@ -99,7 +99,7 @@ export const filterCustomer = (values) =>{
         roleId: "CUSTOMER"
         
     }
-    console.log(userValues);
+    // console.log(userValues);
     return axios.post('/user/filter', userValues)
 }
 
@@ -146,7 +146,7 @@ export const delAllService  = (ids) =>{
 export const filterService= (values) =>{
     const ServiceValue = {
         "start":0,
-        "limit":5,
+        "limit":10000,
         name: values?.name,
         typeOfService: values?.typeOfService,
         learnOnlineOrOffline: values?.learnOnlineOrOffline,
@@ -159,7 +159,7 @@ export const filterService= (values) =>{
 export const filterRL= (values) =>{
     const ServiceValue = {
         "start":0,
-        "limit":5,
+        "limit":10000,
         name: values?.name,
         typeOfService: "REVIEW_LESSON",
         learnOnlineOrOffline: values?.learnOnlineOrOffline,
@@ -206,7 +206,7 @@ export const delAllNews = (ids) =>{
 export const filterNews= (values) =>{
     const newsValue = {
         "start":0,
-        "limit":5,
+        "limit":10000,
         name: values?.name,
         dateFrom: values?.dateFrom,
         dateTo: values?.dateTo,
@@ -249,7 +249,7 @@ export const delAllDocument = (ids) =>{
 export const filterDocument = (values) =>{
     const docValue = {
         "start":0,
-        "limit":5,
+        "limit":10000,
         name: values?.name,
         dateFrom: values?.dateFrom,
         dateTo: values?.dateTo,
@@ -292,12 +292,15 @@ export const delAllES = (ids) =>{
 
 // Filter infor ES
 export const filterES = (values) =>{
-    const docValue = {
+    const examSchedule = {
         "start":0,
-        "limit":5,
-        docName: values?.docName,
+        "limit":10000,
+        areaId: values?.areaId,
+        nameArea: values?.nameArea,
+        schoolId: values?.schoolId,
+        nameExamSchool: values?.nameExamSchool,
     }
-    return axios.post('/exam/schedule/filter', docValue)
+    return axios.post('/exam/schedule/filter', examSchedule)
 }
 
 // ****************** UploadFile ******
@@ -344,7 +347,7 @@ export const delAllDisplay = (ids) =>{
 export const filterDisplay = (values) =>{
     const docValue = {
         "start":0,
-        "limit":5,
+        "limit":10000,
         docName: values?.docName,
     }
     return axios.post('/display/filter', docValue)
@@ -391,7 +394,7 @@ export const delAllConsultingRegister = (ids) =>{
 export const filterConsultingRegister = (values) =>{
     const docValue = {
         "start":0,
-        "limit":3,
+        "limit":10000,
         name: values?.name,
         dateFrom: values?.dateFrom,
         dateTo: values?.dateTo,

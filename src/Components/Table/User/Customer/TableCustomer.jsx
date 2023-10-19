@@ -10,7 +10,6 @@ import {
 import {
   Button,
   Drawer,
-  Input,
   Modal,
   Popover,
   Space,
@@ -26,20 +25,21 @@ import {
   delAllUser,
   deleteUser,
   filterCustomer,
-  getListUser,
 } from "../../../../Services/lead";
 import AddEditUser from "../../../AddEdit/AddEditUser/AddEditUser";
 import DetailUser from "../../../Details/DetailUser/DetailUser";
 import Cookies from "js-cookie";
+import "./styles.css";
 
 function TableCustomer(props) {
-  const [loading, setLoading] = useState(true);
   const [selectedRowKeys, setSelectedRowKeys] = useState([]);
+  const [dataCustomer, setDataCustomer] = useState([]);
   const [currentData, setCurrentData] = useState({});
   const [openDrawer, setOpenDrawer] = useState();
   const [clicked, setClicked] = useState(false);
+  const [loading, setLoading] = useState(true);
   const [openModal, setOpenModal] = useState();
-  const [data, setData] = useState([]);
+  const [total, setTotal] = useState();
   const navigate = useNavigate();
   const { confirm } = Modal;
   const jwt = Cookies.get("jwt");
@@ -72,16 +72,6 @@ function TableCustomer(props) {
     setClicked(open);
   };
 
-  const handleGetCustomer = () => {
-    getListUser().then((res) => {
-      setData(res.data?.data?.items);
-    });
-  };
-
-  const dataCustomer = data.filter(
-    (customer) => customer?.role?.roleId === "CUSTOMER"
-  );
-  console.log("dataCustomer", dataCustomer);
   const renameColumn = dataCustomer.map((item) => ({
     "Tên khách hàng": item.name,
     "Tên đăng nhập": item.username,
@@ -99,11 +89,18 @@ function TableCustomer(props) {
     writeFileXLSX(wb, "Danh sách khách hàng.xlsx");
   };
 
+  const getCustomer = (values) => {
+    filterCustomer(values).then((res) => {
+      setDataCustomer(res.data?.data?.items);
+      setTotal(res?.data?.data?.total);
+    });
+  };
+
   // Hàm xóa từng người dùng
   const handleDelete = (userId) => {
     deleteUser(userId).then((res) => {
       if (res.status === 200) {
-        handleGetCustomer();
+        getCustomer();
       }
     });
   };
@@ -114,7 +111,7 @@ function TableCustomer(props) {
     delAllUser(selectedRowKeys)
       .then((res) => {
         if (res?.data?.success === true) {
-          handleGetCustomer();
+          getCustomer();
           setSelectedRowKeys([]);
         }
       })
@@ -126,15 +123,14 @@ function TableCustomer(props) {
   // Hàm lọc
   const handleFilter = (values) => {
     filterCustomer(values).then((res) => {
-      console.log("res", res);
       if (res?.status === 200) {
-        setData(res?.data?.data?.items);
+        setDataCustomer(res?.data?.data?.items);
       }
     });
   };
 
   useEffect(() => {
-    handleGetCustomer();
+    getCustomer();
     setLoading(false);
   }, []);
 
@@ -199,7 +195,7 @@ function TableCustomer(props) {
   return (
     <div>
       <PageContainer
-        title="Tất cả khách hàng"
+        title={`Tất cả khách hàng:  ${total}`}
         extra={[
           <Space>
             <Popover
@@ -227,6 +223,14 @@ function TableCustomer(props) {
             >
               Export Excel
             </Button>
+            <Button
+              onClick={() => {
+                navigate("/adminpage/verifiedCustomer");
+              }}
+              className="border-1677ff text-1677ff"
+            >
+              Khách hàng đã xác thực
+            </Button>
             <ProFormUploadButton
               className="border-1677ff text-1677ff"
               icon={<ImportOutlined />}
@@ -245,7 +249,8 @@ function TableCustomer(props) {
                     notification.success({
                       message: `Upload ${file.file.name} thành công`,
                     });
-                    handleGetCustomer();
+                    // handleGetCustomer();
+                    getCustomer();
                   } else if (response?.success === false) {
                     notification.open({
                       message: "Lỗi khi tải file",
@@ -272,20 +277,12 @@ function TableCustomer(props) {
               }}
               action="https://5f07-118-70-132-104.ngrok-free.app/excel/import"
             />
-            <Button
-              onClick={() => {
-                navigate("/adminpage/verifiedCustomer");
-              }}
-              className="border-1677ff text-1677ff"
-            >
-              Khách hàng đã xác thực
-            </Button>
           </Space>,
         ]}
       >
         <AddEditUser
           onSuccess={() => {
-            handleGetCustomer();
+            getCustomer();
             setOpenModal(false);
           }}
           openModal={openModal}

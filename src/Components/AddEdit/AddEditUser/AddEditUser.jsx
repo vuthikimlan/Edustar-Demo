@@ -61,12 +61,10 @@ function AddEditUser({ onSuccess, openModal, data, onOpenChange }) {
       if (res?.data?.success === true) {
         message.success("Tạo người dùng thành công");
         onSuccess();
+      } else if (res?.data?.error?.statusCode === 500) {
+        message.error(res?.data?.error?.message);
       } else if (res?.data?.error?.statusCode === 2) {
-        {
-          res?.data?.error?.errorDetailList.map((e) =>
-            message.error(e.message)
-          );
-        }
+        res?.data?.error?.errorDetailList.map((e) => message.error(e.message));
       }
     });
   };
@@ -83,6 +81,8 @@ function AddEditUser({ onSuccess, openModal, data, onOpenChange }) {
             message.error(e.message)
           );
         }
+      } else if (res?.data?.error?.statusCode === 500) {
+        message.error(res?.data?.error?.message);
       }
     });
   };
@@ -98,10 +98,6 @@ function AddEditUser({ onSuccess, openModal, data, onOpenChange }) {
       notification.error({ message: "Tải file lên không thành công!" });
     }
   };
-  // const service = data.services.map((item) => {
-  //   console.log(item.name);
-  // });
-  // console.log("service", service);
 
   useEffect(() => {
     handleGetRole();
@@ -266,17 +262,23 @@ function AddEditUser({ onSuccess, openModal, data, onOpenChange }) {
           <ProFormSelect
             width="md"
             name="services"
-            // initialValue={
-            //   data?.userId
-            //     ? data?.services.map((services) => {
-            //         return services.name;
-            //       })
-            //     : ""
-            // }
+            initialValue={
+              data?.userId
+                ? data?.services.map((services) => {
+                    return services.name;
+                  })
+                : ""
+            }
             mode="multiple"
             options={dataService}
             label="Dịch vụ"
             placeholder="Dịch vụ "
+            rules={[
+              {
+                required: true,
+                message: "Vui lòng chọn dịch vụ ",
+              },
+            ]}
           />
           <ProFormSwitch
             name="isVerified"

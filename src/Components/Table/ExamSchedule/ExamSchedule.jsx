@@ -11,14 +11,21 @@ import {
 } from "@ant-design/icons";
 import { dataSourceES } from "../DataDemo";
 import AddEditES from "../../AddEdit/AddEditES/AddEditES";
-import { delAllES, deleteES, getListES } from "../../../Services/lead";
+import {
+  delAllES,
+  deleteES,
+  filterES,
+  getListES,
+} from "../../../Services/lead";
 import DetailES from "../../Details/DetailES/DetailES";
+import FilterES from "../../FormFilter/FilterES";
 
 function ExamSchedule(props) {
   const [selectedRowKeys, setSelectedRowKeys] = useState([]);
   const [loading, setLoading] = useState(true);
   const [openModal, setOpenModal] = useState();
   const [openDrawer, setOpenDrawer] = useState();
+  const [clicked, setClicked] = useState(false);
   const [dataES, setDataES] = useState([]);
   const [currentData, setCurrentData] = useState({});
   const navigate = useNavigate();
@@ -42,6 +49,14 @@ function ExamSchedule(props) {
         console.log("Cancel");
       },
     });
+  };
+
+  const hide = () => {
+    setClicked(false);
+  };
+
+  const handleClick = (open) => {
+    setClicked(open);
   };
 
   const handleGetES = () => {
@@ -72,6 +87,14 @@ function ExamSchedule(props) {
       .catch((err) => {
         console.log("Lỗi trong quá trình xóa");
       });
+  };
+
+  const handleFilter = (values) => {
+    filterES(values).then((res) => {
+      if (res.status === 200) {
+        setDataES(res?.data?.data?.items);
+      }
+    });
   };
 
   useEffect(() => {
@@ -153,8 +176,19 @@ function ExamSchedule(props) {
               + Thêm lịch thi
             </Button>
             ,
-            <Input.Search />,{/* Thay đổi content */}
-            <Popover content={""} trigger="click">
+            <Popover
+              content={
+                <FilterES
+                  onSearch={(values) => {
+                    handleFilter(values);
+                  }}
+                  hide={hide}
+                />
+              }
+              trigger="click"
+              open={clicked}
+              onOpenChange={handleClick}
+            >
               <Button className="border-1677ff text-1677ff">
                 <FilterOutlined />
                 Lọc

@@ -10,7 +10,6 @@ import TableNews from "./Components/Table/News/News";
 import DetailUser from "./Components/Details/DetailUser/DetailUser";
 import ExamSchedule from "./Components/Table/ExamSchedule/ExamSchedule";
 import Document from "./Components/Table/Document/Document";
-// import DetailNews from "./Components/Details/DetailNews/DetailNews";
 import DetailDoc from "./Components/Details/DetailDoc/DetailDoc";
 import DetailES from "./Components/Details/DetailES/DetailES";
 import DetailNews from "./Components/Details/DetailNews/DetailNews";
@@ -71,7 +70,7 @@ export const router = createBrowserRouter([
         element: <TableStaff />,
         children: [
           {
-            path: "detailstaff/:detailstaff",
+            path: "detailstaff/:detailstaffId",
             element: <DetailUser />,
           },
         ],
@@ -81,7 +80,7 @@ export const router = createBrowserRouter([
         element: <TableCustomer />,
         children: [
           {
-            path: "detailcustomer/:detailcustomer",
+            path: "detailcustomer/:detailcustomerId",
             element: <DetailUser />,
           },
         ],
@@ -89,10 +88,22 @@ export const router = createBrowserRouter([
       {
         path: "verifiedCustomer",
         element: <VerifiedCustomer />,
+        children: [
+          {
+            path: "detailverifiedcustomer/:detailverifiedcustomerId",
+            element: <DetailUser />,
+          },
+        ],
       },
       {
         path: "nonVerifiedCustomer",
         element: <NonVerifiedCustomer />,
+        children: [
+          {
+            path: "detailnonVerifiedCustomer/:detailnonVerifiedCustomerId",
+            element: <DetailUser />,
+          },
+        ],
       },
       {
         path: "eduprogram",

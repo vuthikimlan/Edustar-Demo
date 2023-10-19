@@ -276,8 +276,11 @@ function TableUser(props) {
           rowSelection={rowSelection}
           columns={columns}
           dataSource={dataUser}
-          pagination={{
-            pageSize: 7,
+          // pagination={{
+          //   pageSize: 7,
+          // }}
+          scroll={{
+            y: 413,
           }}
           loading={loading}
         />

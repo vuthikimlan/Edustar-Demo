@@ -124,9 +124,10 @@ function VerifiedCustomer(props) {
             className="detail"
             icon={<SolutionOutlined />}
             onClick={() => {
-              console.log("drawer");
               setOpenDrawer(true);
-              navigate(`/adminpage/customer/detailcustomer/${record.userId}`);
+              navigate(
+                `/adminpage/verifiedCustomer/detailverifiedcustomer/${record.userId}`
+              );
             }}
           ></Button>
         </Space>

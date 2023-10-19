@@ -9,7 +9,6 @@ import { Button, Drawer, Input, Modal, Popover, Space, Table } from "antd";
 import React, { useEffect, useState } from "react";
 import { PageContainer } from "@ant-design/pro-components";
 import { useNavigate } from "react-router-dom";
-import { dataSourceUser } from "../../DataDemo";
 import FilterUser from "../../../FormFilter/FilterUser";
 import {
   delAllUser,
@@ -26,7 +25,8 @@ function TableStaff(props) {
   const [openModal, setOpenModal] = useState();
   const [searchData, setSearchData] = useState();
   const [currentStaff, setCurrentStaff] = useState({});
-  const [data, setData] = useState([]);
+  const [total, setTotal] = useState();
+  const [dataStaff, setDataStaff] = useState([]);
   const [clicked, setClicked] = useState(false);
   const navigate = useNavigate();
   const { confirm } = Modal;
@@ -61,19 +61,18 @@ function TableStaff(props) {
   };
 
   // getAll
-  const handleGetStaff = () => {
-    getListUser().then((res) => {
-      setData(res?.data?.data?.items);
+
+  const getStaff = (values) => {
+    filterStaff(values).then((res) => {
+      setDataStaff(res?.data?.data?.items);
+      setTotal(res?.data?.data?.total);
     });
   };
-
-  const dataStaff = data.filter((staff) => staff?.role?.roleId === "STAFF");
-  // console.log(dataStaff);
 
   const handleDelete = (userId) => {
     deleteUser(userId).then((res) => {
       if (res.status === 200) {
-        handleGetStaff();
+        getStaff();
       }
     });
   };
@@ -83,7 +82,7 @@ function TableStaff(props) {
   const handleDeleteAll = () => {
     delAllUser(selectedRowKeys).then((res) => {
       if (res?.data?.success === true) {
-        handleGetStaff();
+        getStaff();
         setSelectedRowKeys([]);
       }
     });
@@ -99,7 +98,7 @@ function TableStaff(props) {
       name: values,
     }).then((res) => {
       if (res.status === 200) {
-        setData(res?.data?.data?.items);
+        setDataStaff(res?.data?.data?.items);
       }
     });
   };
@@ -109,13 +108,13 @@ function TableStaff(props) {
     filterStaff(values).then((res) => {
       console.log("res", res);
       if (res?.status === 200) {
-        setData(res?.data?.data?.items);
+        setDataStaff(res?.data?.data?.items);
       }
     });
   };
 
   useEffect(() => {
-    handleGetStaff();
+    getStaff();
     setLoading(false);
   }, []);
 
@@ -179,7 +178,7 @@ function TableStaff(props) {
   return (
     <div>
       <PageContainer
-        title="Tất cả nhân viên"
+        title={`Tất cả nhân viên:  ${total}`}
         extra={[
           <Space>
             <Input.Search
@@ -212,7 +211,7 @@ function TableStaff(props) {
       >
         <AddEditUser
           onSuccess={() => {
-            handleGetStaff();
+            getStaff();
             setOpenModal(false);
           }}
           openModal={openModal}
@@ -241,9 +240,9 @@ function TableStaff(props) {
           dataSource={dataStaff}
           size="middle"
           rowSelection={rowSelection}
-          pagination={{
-            pageSize: 50,
-          }}
+          // pagination={{
+          //   pageSize: 50,
+          // }}
           scroll={{
             y: 413,
           }}

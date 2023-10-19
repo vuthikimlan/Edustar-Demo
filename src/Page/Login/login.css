@@ -21,7 +21,7 @@
  }
  .ant-form-item-explain-error{
     text-align: left;
-    position: absolute;
+    /* position: absolute; */
     bottom: 5px;
     width: 103%;
     padding-bottom: 5px;

@@ -1,13 +1,26 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { UserOutlined, LogoutOutlined } from "@ant-design/icons";
 import { Avatar, Drawer, Dropdown, Space } from "antd";
 import { useNavigate } from "react-router-dom";
 import RecordUser from "../../Components/RecordUser/RecordUser";
 import Cookies from "js-cookie";
+import { getProfileUser } from "../../Services/lead";
 
 function HeaderEtest(props) {
   const navigate = useNavigate();
   const [openDrawer, setOpenDrawer] = useState();
+  const [data, setData] = useState({});
+
+  const handleGetProfileUser = () => {
+    getProfileUser().then((res) => {
+      setData(res?.data?.data);
+    });
+  };
+  useEffect(() => {
+    handleGetProfileUser();
+  }, []);
+
+  const checkPermission = data?.role?.roleId === "ADMIN";
 
   const items = [
     {
@@ -29,9 +42,12 @@ function HeaderEtest(props) {
       },
     },
   ];
+
   return (
     <div className="flex justify-between ">
-      <h1 className="font-sans text-xl font-medium pt-2 ">Xin chào Admin 👋🏼</h1>
+      <h1 className="font-sans text-xl font-medium pt-2 ">{`Xin chào ${
+        checkPermission ? "ADMIN" : "STAFF"
+      } 👋🏼`}</h1>
       <div>
         <Dropdown menu={{ items }} trigger={["click"]}>
           <Space>
@@ -39,7 +55,7 @@ function HeaderEtest(props) {
               style={{ backgroundColor: "#1677FF" }}
               icon={<UserOutlined />}
             />
-            Admin
+            {`${checkPermission ? "ADMIN" : "STAFF"}`}
           </Space>
         </Dropdown>
         <Drawer
