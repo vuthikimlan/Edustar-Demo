@@ -198,7 +198,7 @@ function TableUser(props) {
   return (
     <div>
       <PageContainer
-        title={`Tất cả người dùng:  ${total}`}
+        title={`Tất cả người dùng:  ${total} người dùng`}
         extra={[
           <Space>
             <Button

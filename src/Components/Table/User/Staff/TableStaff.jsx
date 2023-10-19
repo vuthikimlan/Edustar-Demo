@@ -178,7 +178,7 @@ function TableStaff(props) {
   return (
     <div>
       <PageContainer
-        title={`Tất cả nhân viên:  ${total}`}
+        title={`Tất cả nhân viên:  ${total} nhân viên`}
         extra={[
           <Space>
             <Input.Search

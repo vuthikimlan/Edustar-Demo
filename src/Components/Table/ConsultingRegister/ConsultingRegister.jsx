@@ -28,6 +28,8 @@ function ConsultingRegister(props) {
   const [clicked, setClicked] = useState(false);
   const [searchData, setSearchData] = useState();
   const [data, setData] = useState([]);
+  const [total, setTotal] = useState();
+
   const navigate = useNavigate();
   const { confirm } = Modal;
 
@@ -62,6 +64,7 @@ function ConsultingRegister(props) {
   const handleGetCR = () => {
     getListConsultingRegister().then((res) => {
       setData(res?.data?.data?.items);
+      setTotal(res?.data?.data?.total);
     });
   };
 
@@ -171,7 +174,7 @@ function ConsultingRegister(props) {
   return (
     <>
       <PageContainer
-        title="Khách hàng đăng ký tư vấn"
+        title={`Khách hàng đăng ký tư vấn:  ${total} khách hàng`}
         extra={[
           <Space>
             <Input.Search

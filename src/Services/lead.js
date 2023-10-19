@@ -103,6 +103,16 @@ export const filterCustomer = (values) =>{
     return axios.post('/user/filter', userValues)
 }
 
+export const filterIsVerifiedCustomer = (values) =>{
+    const isVerifiedCustomer = {
+        start: 0,
+        limit: 10000,
+        roleId: "CUSTOMER",
+        isVerified: false
+
+    }
+    return axios.post('/user/filter', isVerifiedCustomer)
+}
 
 // *********** Role ********
 // getAll

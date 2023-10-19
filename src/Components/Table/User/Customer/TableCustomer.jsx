@@ -195,7 +195,7 @@ function TableCustomer(props) {
   return (
     <div>
       <PageContainer
-        title={`Tất cả khách hàng:  ${total}`}
+        title={`Tất cả khách hàng:  ${total} khách hàng`}
         extra={[
           <Space>
             <Popover

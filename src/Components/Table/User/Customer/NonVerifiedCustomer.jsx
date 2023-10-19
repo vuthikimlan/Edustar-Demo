@@ -1,7 +1,12 @@
 import { Button, Drawer, Modal, Space, Table } from "antd";
 import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { delAllUser, deleteUser, getListUser } from "../../../../Services/lead";
+import {
+  delAllUser,
+  deleteUser,
+  filterIsVerifiedCustomer,
+  getListUser,
+} from "../../../../Services/lead";
 import {
   CloseOutlined,
   DeleteOutlined,
@@ -13,12 +18,13 @@ import AddEditUser from "../../../AddEdit/AddEditUser/AddEditUser";
 import DetailUser from "../../../Details/DetailUser/DetailUser";
 
 function NonVerifiedCustomer(props) {
-  const [loading, setLoading] = useState(true);
-  const [openDrawer, setOpenDrawer] = useState();
-  const [openModal, setOpenModal] = useState();
+  const [nonVerifiedCustomer, setNonVerifiedCustomer] = useState([]);
   const [selectedRowKeys, setSelectedRowKeys] = useState([]);
   const [currentData, setCurrentData] = useState({});
-  const [data, setData] = useState([]);
+  const [openDrawer, setOpenDrawer] = useState();
+  const [loading, setLoading] = useState(true);
+  const [openModal, setOpenModal] = useState();
+  const [total, setTotal] = useState();
   const navigate = useNavigate();
   const { confirm } = Modal;
 
@@ -41,7 +47,7 @@ function NonVerifiedCustomer(props) {
     delAllUser(selectedRowKeys)
       .then((res) => {
         if (res?.data?.success === true) {
-          handleGetCustomer();
+          getNonVerifiedCustomer();
           setSelectedRowKeys([]);
         }
       })
@@ -54,27 +60,23 @@ function NonVerifiedCustomer(props) {
     onChange: onSelectChange,
   };
 
-  const handleGetCustomer = () => {
-    getListUser().then((res) => {
-      setData(res.data?.data?.items);
+  const getNonVerifiedCustomer = (values) => {
+    filterIsVerifiedCustomer(values).then((res) => {
+      setNonVerifiedCustomer(res.data?.data?.items);
+      setTotal(res?.data?.data?.total);
     });
   };
 
-  const nonVerifiedCustomer = data.filter(
-    (customer) =>
-      customer?.verified === false && customer?.role?.roleId === "CUSTOMER"
-  );
-  console.log("nonVerifiedCustomer", nonVerifiedCustomer);
   // Hàm xóa từng người dùng
   const handleDelete = (userId) => {
     deleteUser(userId).then((res) => {
       if (res.status === 200) {
-        handleGetCustomer();
+        getNonVerifiedCustomer();
       }
     });
   };
   useEffect(() => {
-    handleGetCustomer();
+    getNonVerifiedCustomer();
     setLoading(false);
   }, []);
   const columns = [
@@ -139,7 +141,7 @@ function NonVerifiedCustomer(props) {
   return (
     <div>
       <PageContainer
-        title="Tất cả khách hàng chưa xác thực"
+        title={`Tất cả khách hàng chưa xác thực:  ${total} khách hàng`}
         extra={[
           <Space>
             <Button
@@ -161,7 +163,7 @@ function NonVerifiedCustomer(props) {
       >
         <AddEditUser
           onSuccess={() => {
-            handleGetCustomer();
+            getNonVerifiedCustomer();
             setOpenModal(false);
           }}
           openModal={openModal}
