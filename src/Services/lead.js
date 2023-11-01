@@ -79,7 +79,6 @@ export const filterStaff = (values) =>{
         roleId: "STAFF"
         
     }
-    console.log(userValues);
     return axios.post('/user/filter', userValues)
 }
 
