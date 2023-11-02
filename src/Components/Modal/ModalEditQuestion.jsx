@@ -26,7 +26,7 @@ const onFinishCreateQuestion = (values) => {
   console.log("Received values of form:", values);
 };
 
-function ModalEditQuestion({ dataQuestion, answers }) {
+function ModalEditQuestion({ dataQuestion, answers, handleGetDataExam }) {
   const [select, setSelect] = useState(null);
   const { data, dispatch } = useContext(AppContext);
   const [errorDisplayed, setErrorDisplayed] = useState(false);
@@ -50,14 +50,12 @@ function ModalEditQuestion({ dataQuestion, answers }) {
   };
 
   const handleCloseAndSave = (values) => {
-   
 
+    
     if (select === null && !errorDisplayed) {
       notification.error({ message: "Kiểu câu hỏi không được để trống" });
       setErrorDisplayed(true);
-    }
-   
-    else if (listAnswer !== null && listChoiceCorrect !== null) {
+    } else if (listAnswer != null && listChoiceCorrect != null) {
       updateQuestion({
         id: dataQuestion.id,
         content: values.content,
@@ -66,18 +64,23 @@ function ModalEditQuestion({ dataQuestion, answers }) {
         listAnswer: listAnswer,
         choiceCorrect: listChoiceCorrect,
         description: "Day la phan mo ta ",
-      })
-        .then((response) => {
+      }).then((response) => {
+          console.log(response);
           if (response.data.success === true) {
             dispatch({ type: "listAnswer", payload: null });
             dispatch({ type: "resetListChoiceCorrect" });
             notification.success({ message: "Lưu thành công câu hỏi " });
+            // handleGetDataExam();
+            dispatch({type : "updateExam"})
+
+            handleCancel();
+
           }
         })
         .catch((err) => {
           notification.error({ message: "Lỗi tạo câu hỏi" });
         });
-      handleCancel();
+
       setErrorDisplayed(false);
     } else if (!errorDisplayed) {
       notification.error({
@@ -86,8 +89,12 @@ function ModalEditQuestion({ dataQuestion, answers }) {
             ? "Danh sách câu trả lời ĐÚNG không được để trống"
             : "Danh sách câu trả lời không được để trống ",
       });
+      handleCancel();
+
       setErrorDisplayed(true);
     }
+    
+  //  console.log(values);
   };
 
   const onChangeTypeQuestion = (e) => {

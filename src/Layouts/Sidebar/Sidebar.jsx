@@ -148,6 +148,37 @@ function Sidebar(props) {
       },
     },
     {
+      label: "Thi thử ",
+      key: "mocktest",
+      icon: <TeamOutlined />,
+      children: [
+        {
+          label: "Quản lý đề thi",
+          key: "11",
+          icon: <FileTextOutlined />,
+          onClick: () => {
+            navigate("/adminpage/infor-exam");
+          },
+        },
+        {
+          label: "Quản lý bài thi",
+          icon: <FileTextOutlined />,
+          key: "12",
+          onClick: () => {
+            navigate("/adminpage/user-test");
+          },
+        },
+        {
+          label: "Thống kê",
+          icon: <FileTextOutlined />,
+          key: "13",
+          onClick: () => {
+            navigate("/adminpage/statistics");
+          },
+        },
+      ],
+    },
+    {
       label: "Quản lý hiện thị",
       key: "display",
       icon: <ReadOutlined />,
@@ -175,37 +206,17 @@ function Sidebar(props) {
         },
       ],
     },
-    {
-      label: "Thi thử ",
-      key: "mocktest",
-      icon: <TeamOutlined />,
-      children: [
-        {
-          label: "Quản lý đề thi",
-          key: "13",
-          icon: <FileTextOutlined />,
-          onClick: () => {
-            navigate("/adminpage/mocktest");
-          },
-        },
-        {
-          label: "Quản lý bài thi",
-          key: "14",
-          onClick: () => {
-            navigate("/adminpage/staff");
-          },
-        },
-      ],
-    },
+    
   ];
   return (
     <div>
-      <div className="p-2.5 m-2.5 bg-white ">
+      <div className="p-2.5 m-2.5 bg-white " >
         <img src={logo} alt="" className="w-[4rem] ml-[4rem] h-[5rem] " />
       </div>
       <Menu
         theme="dark"
         mode="inline"
+        // className="h-full"
         items={items}
         defaultSelectedKeys={checkPathname}
         defaultOpenKeys={["user"]}

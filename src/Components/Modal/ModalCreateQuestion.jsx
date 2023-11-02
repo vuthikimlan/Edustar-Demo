@@ -15,6 +15,7 @@ import { AppContext } from "../AppContext/AppContext";
 import { Radio } from "antd";
 import "./addAnswer.css";
 import FormListQuestion from "../FormFilter/FormListAnswer";
+import FormUpload from "../FormFilter/FormUpload"
 import { useForm } from "antd/es/form/Form";
 
 const onFinishCreateQuestion = (values) => {
@@ -33,6 +34,7 @@ function ModalCreateQuestion() {
     listAnswer,
     listChoiceCorrect,
     listQuestion,
+    fileInDescription
   } = data;
   const handleSelectRadio = (e) => {
     dispatch({ type: "listChoiceCorrect", payload: e.target.value });
@@ -43,6 +45,7 @@ function ModalCreateQuestion() {
     dispatch({ type: "type", payload: null });
     dispatch({ type: "resetListChoiceCorrect" });
     dispatch({ type: "closeModalCreateQuestion" });
+
   };
 
   const handleCloseAndSave = (values) => {
@@ -60,7 +63,7 @@ function ModalCreateQuestion() {
           type: type,
           listAnswer: newListAw,
           choiceCorrect: listChoiceCorrect,
-          description: null,
+          description: fileInDescription,
         },
       });
 
@@ -87,7 +90,7 @@ function ModalCreateQuestion() {
           type: type,
           listAnswer: newListAw,
           choiceCorrect: listChoiceCorrect,
-          description: null,
+          description: fileInDescription,
         },
       });
 
@@ -96,50 +99,7 @@ function ModalCreateQuestion() {
       handleCancel();
     }
   };
-  /*
-  const handleCloseAndSave = (values) => {
-    if (values.content !== undefined) {
-      if (type !== null) {
-        if (listAnswer === null && type === "Essay_answers") {
-          dispatch({
-            type: "createListQuestion",
-            payload: {
-              content: values.content,
-              type: "Essay_answers",
-            },
-          });
-          notification.success({ message: "Lưu thành công " });
-          dispatch({ type: "listAnswer", payload: null });
-          handleCancel();
-        } else if (listAnswer !== null && listAnswer.length !== 0) {
-          const newListAw =
-            listAnswer && listAnswer.filter((item) => item !== undefined);
-          dispatch({
-            type: "createListQuestion",
-            payload: {
-              content: values.content,
-              type: type,
-              listAnswer: newListAw,
-              listChoiceCorrect: listChoiceCorrect,
-            },
-          });
-          notification.success({ message: "Lưu thành công " });
-          dispatch({ type: "listAnswer", payload: null });
-          handleCancel();
-        } else if (type !== "Essay_answers") {
-          // Chỉ hiển thị thông báo khi type không phải "Essay_answers"
-          notification.error({
-            message: "Danh sách câu trả lời không được để trống ",
-          });
-        }
-      } else {
-        notification.error({ message: "Nhập vào kiểu câu hỏi" });
-      }
-    }
-    console.log("listQuestion :", listQuestion);
-  };
-*/
-
+  
   const onChangeTypeQuestion = (e) => {
     console.log("radio checked", e.target.value);
     dispatch({ type: "type", payload: e.target.value });
@@ -221,7 +181,11 @@ function ModalCreateQuestion() {
     {
       key: "3",
       label: "Mô tả ",
-      children: "Content of Tab Pane 2",
+      children: (
+        <>
+          <FormUpload/>
+        </>
+      )
     },
   ];
 
