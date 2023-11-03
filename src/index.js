@@ -7,15 +7,16 @@ import { ConfigProvider } from "antd";
 import { RouterProvider } from "react-router-dom";
 import { router } from "./router";
 import vinVN from "antd/locale/vi_VN";
+import AppProvider from "./Components/AppContext/AppContext";
 // import vinVN from "@ant-design/pro-components"
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
   <React.StrictMode>
       <ConfigProvider locale={vinVN}>
-        {/* <AppProvider> */}
+        <AppProvider>
         <RouterProvider router={router} />
-        {/* </AppProvider> */}
+        </AppProvider>
       </ConfigProvider>
   
   </React.StrictMode>

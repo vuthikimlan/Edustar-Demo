@@ -197,7 +197,7 @@ function TableCustomer(props) {
       <PageContainer
         title={`Tất cả khách hàng:  ${total} khách hàng`}
         extra={[
-          <Space>
+          <div className="flex">
             <Popover
               content={
                 <FilterUser
@@ -277,7 +277,7 @@ function TableCustomer(props) {
               }}
               action="http://fita1.vnua.edu.vn/excel/import"
             />
-          </Space>,
+          </div>,
         ]}
       >
         <AddEditUser

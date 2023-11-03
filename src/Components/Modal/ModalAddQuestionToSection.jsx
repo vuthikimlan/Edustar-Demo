@@ -23,7 +23,7 @@ const onFinishCreateQuestion = (values) => {
   console.log("Received values of form:", values);
 };
 
-function ModalAddQuestionToSection({ idSection, title }) {
+function ModalAddQuestionToSection({ idSection, title ,handleGetDataExam}) {
   const [select, setSelect] = useState([]);
   const { data, dispatch } = useContext(AppContext);
   const [errorDisplayed, setErrorDisplayed] = useState(false);
@@ -33,6 +33,7 @@ function ModalAddQuestionToSection({ idSection, title }) {
     content,
     type,
     listAnswer,
+    isUpdateQuestion ,
     listChoiceCorrect,
     listQuestion,
   } = data;
@@ -61,25 +62,7 @@ function ModalAddQuestionToSection({ idSection, title }) {
       notification.error({
         message: "Danh sách câu trả lời ĐÚNG không được để trống ",
       });
-      // updateQuestion({
-      //   id: dataQuestion.id,
-      //   content: values.content,
-      //   point: values.point,
-      //   type: select,
-      //   listAnswer: listAnswer,
-      //   choiceCorrect: listChoiceCorrect,
-      //   description: "Day la phan mo ta ",
-      // })
-      //   .then((response) => {
-      //     if (response.data.success === true) {
-      //       dispatch({ type: "listAnswer", payload: null });
-      //       dispatch({ type: "resetListChoiceCorrect" });
-      //       notification.success({ message: "Lưu thành công câu hỏi " });
-      //     }
-      //   })
-      //   .catch((err) => {
-      //     notification.error({ message: "Lỗi tạo câu hỏi" });
-      //   });
+     
     } else if (
       select !== null &&
       listAnswer !== null &&
@@ -100,6 +83,8 @@ function ModalAddQuestionToSection({ idSection, title }) {
         choiceCorrect : listChoiceCorrect
       }).then((res)=>{
           if(res.data.success === true){
+            // handleGetDataExam()
+            dispatch({type : 'updateExam'})
             notification.success({message : "Thêm thành công câu hỏi vào phần thi " + title})
           }else{
             notification.error({message : "Có lỗi khi thêm câu hỏi"})

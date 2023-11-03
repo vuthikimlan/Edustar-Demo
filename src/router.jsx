@@ -1,3 +1,5 @@
+
+
 import { createBrowserRouter } from "react-router-dom";
 import PageETest from "./Page/PageETest/PageETest";
 import Login from "./Page/Login/Login";
@@ -35,6 +37,12 @@ import DetailConsultingRegister from "./Components/Details/ConsultingRegister/Co
 import VerifiedCustomer from "./Components/Table/User/Customer/VerifiedCustomer";
 import NonVerifiedCustomer from "./Components/Table/User/Customer/NonVerifiedCustomer";
 import TOEIC from "./Components/Table/DisplayManager/DisplayProgram/TOEIC/TOEIC";
+// import Editor from "./Components/CKEditor/CKEditor";
+import StatisticsUserResponse from "./Page/Statistics/StatisticsUserResponse";
+import ShowResponseUsers from "./Page/ResponseUser/ShowResponseUsers";
+import HomePageStatistic from "./Page/Statistics/HomePageStatistic";
+import DetailExamresults from "./Page/Exam/DetailExamresults";
+import StatisticExam from "./Page/Statistics/StatisticExam";
 // import Editor from "./Components/CKEditor/CKEditor";
 
 export const router = createBrowserRouter([
@@ -248,10 +256,7 @@ export const router = createBrowserRouter([
         path: "displayslide",
         element: <Slide />,
       },
-      {
-        path: "mocktest",
-        element: <PageMockTest />,
-      },
+
       {
         path: "contest",
         element: <Contest />,
@@ -267,6 +272,26 @@ export const router = createBrowserRouter([
       {
         path: "infor-exam",
         element: <InforExams />,
+      },
+      {
+        path: "statistics/:responseId",
+        element: <StatisticsUserResponse />,
+      },
+      {
+        path: "statistics",
+        element: <HomePageStatistic />,
+      },
+      {
+        path: "statistics/exam/:examId",
+        element: <StatisticExam />,
+      },
+      {
+        path: "user-test",
+        element: <ShowResponseUsers />,
+      },
+      {
+        path: "detail-results/:resultId",
+        element: <DetailExamresults />,
       },
       {
         path: "consultingRegister",

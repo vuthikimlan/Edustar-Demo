@@ -14,12 +14,7 @@ function PageMockTest() {
     <div className="bg-gray-800 text-white">
       {/* <Button className='bg-teal-400 font-medium text-white ml-8 my-8' onClick={()=> navigate("/adminpage/create-question")}>TẠO PHẦN MỚI</Button> */}
       <div className="flex justify-start ml-[10%] py-5 ">
-        <Button
-          className="uppercase font-medium text-white bg-teal-400 mr-[1%]"
-          onClick={() => navigate("/adminpage/contest")}
-        >
-          Tạo bài thi mới{" "}
-        </Button>
+      
         <Button className="uppercase font-medium text-white bg-teal-400 "
         onClick={()=> navigate("/adminpage/infor-exam")}
         >

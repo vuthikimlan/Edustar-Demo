@@ -1,4 +1,3 @@
-
 import React, { useContext, useEffect, useState } from "react";
 import { Button, Collapse, Form, Input, Modal, notification } from "antd";
 import { DeleteOutlined, EditOutlined } from "@ant-design/icons";
@@ -8,7 +7,7 @@ import { useNavigate } from "react-router-dom";
 
 function CollapseContest(props) {
   const [dataQuestion, setDataQuestion] = useState(null);
-  const navigate = useNavigate()
+  const navigate = useNavigate();
   const handleData = () => {
     setDataQuestion(JSON.parse(localStorage.getItem("listContest")));
   };
@@ -55,20 +54,24 @@ function CollapseContest(props) {
       ),
     };
   });
-  const onFinish =async (values) => {
+  const onFinish = async (values) => {
     const sectionRequests = JSON.parse(localStorage.getItem("listContest"));
     // console.log(sectionRequests);
-    const  res = await createExam({
-      name : values.name , 
-      timeExam : values.timeExam ,
-      sectionRequests : sectionRequests
-    })
-    if(res?.data?.success === true){
-      navigate('/adminpage/mocktest')
-      localStorage.setItem("listContest" , JSON.stringify(null))
+    if (sectionRequests == null) {
+      notification.error({ message: "Bạn phải tạo thông tin phần thi trước" });
+      // navigate("/adminpage/create-question")
+    } else {
+      const res = await createExam({
+        name: values.name,
+        timeExam: values.timeExam,
+        sectionRequests: sectionRequests,
+      });
+      if (res?.data?.success === true) {
+        navigate("/adminpage/mocktest");
+        localStorage.setItem("listContest", JSON.stringify(null));
+      }
+      console.log(res.data);
     }
-    console.log(res.data);
-
   };
 
   return (
@@ -88,7 +91,6 @@ function CollapseContest(props) {
           remember: true,
         }}
         onFinish={onFinish}
-        
         autoComplete="off"
       >
         <Form.Item
@@ -97,7 +99,7 @@ function CollapseContest(props) {
           rules={[
             {
               required: true,
-              message: "Please input your username!",
+              message: "Nhập vào tiêu đề bài thi!",
             },
           ]}
         >
@@ -109,11 +111,11 @@ function CollapseContest(props) {
           rules={[
             {
               required: true,
-              message: "Please input your username!",
+              message: "Nhập vào thời gian bài thi",
             },
           ]}
         >
-          <Input className="mb-1" type="number"/>
+          <Input className="mb-1" type="number" />
         </Form.Item>
         <Form.Item
           wrapperCol={{
@@ -122,15 +124,16 @@ function CollapseContest(props) {
           }}
         >
           <Button type="primary" htmlType="submit" className="">
-           Save
+            Save
           </Button>
         </Form.Item>
       </Form>
       <div>
-          <h2 className="text-center font-medium uppercase text-xl mb-5">Danh sách các phần có trong bài thi </h2>
-      <Collapse items={items} />
+        <h2 className="text-center font-medium uppercase text-xl mb-5">
+          Danh sách các phần có trong bài thi{" "}
+        </h2>
+        <Collapse items={items} />
       </div>
-
     </>
   );
 }

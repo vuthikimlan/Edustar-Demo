@@ -10,20 +10,21 @@ import React, { useContext } from "react";
 import { useNavigate } from "react-router-dom";
 import ColapseContest from "./ColapseContest";
 import { AppContext } from "../../Components/AppContext/AppContext";
+import ModalGetPathFile from "../../Components/Modal/ModalGetPathFile";
 // import { AppContext } from "../../Components/AppContext/AppContext";
 function Contest(props) {
-  const {data , dispatch} = useContext(AppContext);
-  const {nameTest} = data ;
+  const { data, dispatch } = useContext(AppContext);
+  const { nameTest } = data;
   const navigate = useNavigate();
   const handleDeleteData = () => {
     const data = JSON.parse(localStorage.getItem("listContest"));
-    localStorage.setItem('listContest' , JSON.stringify(null));
+    localStorage.setItem("listContest", JSON.stringify(null));
     console.log(data);
   };
-  const handleCreateExam = ()=>{
+  const handleCreateExam = () => {
     const data = JSON.parse(localStorage.getItem("listContest"));
     console.log(data);
-  }
+  };
   const items = [
     {
       key: "1",
@@ -41,7 +42,7 @@ function Contest(props) {
       key: "2",
       label: (
         <Button className="bg-teal-400 font-medium text-white uppercase ">
-         Lưu bài thi
+          Lưu bài thi
         </Button>
       ),
       children: (
@@ -55,14 +56,14 @@ function Contest(props) {
       label: (
         <Button
           className="bg-orange-500 font-medium text-white ml-8 "
-          onClick={() => navigate("/adminpage/mocktest")}
+          onClick={() => navigate("/adminpage/infor-exam")}
           icon={<RollbackOutlined />}
         >
           QUAY LẠI
         </Button>
       ),
     },
-   
+
     {
       key: "5",
       label: (
@@ -86,11 +87,23 @@ function Contest(props) {
         </Popconfirm>
       ),
     },
+    {
+      key: "4",
+      label: (
+        <Button
+          onClick={() => dispatch({ type: "openModalGetPathFile" })}
+          className="bg-orange-500 font-medium text-white ml-8 uppercase"
+        >
+          lấy đường dẫn file{" "}
+        </Button>
+      ),
+    },
   ];
 
   return (
     <div>
       <Tabs defaultValue={2} items={items} />
+      <ModalGetPathFile />
     </div>
   );
 }
