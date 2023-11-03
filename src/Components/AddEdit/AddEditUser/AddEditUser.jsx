@@ -243,7 +243,7 @@ function AddEditUser({ onSuccess, openModal, data, onOpenChange }) {
                 console.log("file:: ", file);
               },
             }}
-            action="https://1721-118-70-132-104.ngrok-free.app/file/upload"
+            action="http://fita1.vnua.edu.vn/file/upload"
           />
           <ProFormSelect
             width="md"
@@ -264,8 +264,8 @@ function AddEditUser({ onSuccess, openModal, data, onOpenChange }) {
             name="services"
             initialValue={
               data?.userId
-                ? data?.services.map((services) => {
-                    return services.name;
+                ? data?.services.map((service) => {
+                    return service.name;
                   })
                 : ""
             }

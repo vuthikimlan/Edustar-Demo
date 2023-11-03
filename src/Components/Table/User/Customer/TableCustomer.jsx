@@ -275,7 +275,7 @@ function TableCustomer(props) {
                   }
                 },
               }}
-              action="https://5f07-118-70-132-104.ngrok-free.app/excel/import"
+              action="http://fita1.vnua.edu.vn/excel/import"
             />
           </Space>,
         ]}
