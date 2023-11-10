@@ -8,7 +8,7 @@ import axios from "axios";
 // },
 
 // const base_url = "https://edustar-app-demo-5bad83017071.herokuapp.com"
-const base_url = "http://fita1.vnua.edu.vn"
+const base_url = "http://34.171.75.213:9999"
 
 const login_path = "/auth/login"
 

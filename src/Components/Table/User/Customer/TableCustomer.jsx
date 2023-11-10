@@ -183,7 +183,6 @@ function TableCustomer(props) {
             className="detail"
             icon={<SolutionOutlined />}
             onClick={() => {
-              console.log("drawer");
               setOpenDrawer(true);
               navigate(`/adminpage/customer/detailcustomer/${record.userId}`);
             }}
@@ -211,7 +210,7 @@ function TableCustomer(props) {
               open={clicked}
               onOpenChange={handleClick}
             >
-              <Button className="border-1677ff text-1677ff">
+              <Button className="border-1677ff text-1677ff mr-[10px]">
                 <FilterOutlined />
                 Lọc
               </Button>
@@ -219,7 +218,7 @@ function TableCustomer(props) {
             <Button
               icon={<DownloadOutlined />}
               onClick={hanldeExportFile}
-              className="border-1677ff text-1677ff"
+              className="border-1677ff text-1677ff mr-[10px]"
             >
               Export Excel
             </Button>
@@ -227,7 +226,7 @@ function TableCustomer(props) {
               onClick={() => {
                 navigate("/adminpage/verifiedCustomer");
               }}
-              className="border-1677ff text-1677ff"
+              className="border-1677ff text-1677ff mr-[10px]"
             >
               Khách hàng đã xác thực
             </Button>
