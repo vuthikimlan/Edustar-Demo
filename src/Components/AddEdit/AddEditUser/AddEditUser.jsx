@@ -267,7 +267,7 @@ function AddEditUser({ onSuccess, openModal, data, onOpenChange }) {
                 ? data?.services.map((service) => {
                     return service.name;
                   })
-                : ""
+                : null
             }
             mode="multiple"
             options={dataService}
