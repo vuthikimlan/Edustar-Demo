@@ -29,6 +29,8 @@ function AddEditUser({ onSuccess, openModal, data, onOpenChange }) {
   const [fieldFile, setFieldFile] = useState("");
   const formRef = useRef(null);
 
+  // console.log('data',data);
+
   const handleGetRole = () => {
     getAllRole().then((res) => {
       const role = res?.data?.data?.items;

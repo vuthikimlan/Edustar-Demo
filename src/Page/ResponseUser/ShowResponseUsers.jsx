@@ -44,7 +44,7 @@ function ShowResponseUsers(props) {
   ];
   const hanldeGetData = () => {
     getAllUserResponse().then((res) => {
-      console.log(res.data.data.items);
+      // console.log(res.data.data.items);
       setData1(res?.data?.data?.items);
     });
   };

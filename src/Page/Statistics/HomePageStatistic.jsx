@@ -18,7 +18,7 @@ function HomePageStatistic(props) {
     if(selectKey ===1 ){
 
         getAllUserResponse().then((res) => {
-          console.log(res.data.data.items);
+          // console.log(res.data.data.items);
           setData(res?.data?.data?.items);
         });
     }else if(selectKey ===2 ){
