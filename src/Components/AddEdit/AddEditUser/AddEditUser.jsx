@@ -22,6 +22,7 @@ import "../style.css";
 import _ from "lodash";
 
 function AddEditUser({ onSuccess, openModal, data, onOpenChange }) {
+  console.log("data", data);
   const [dataRole, setDataRole] = useState([]);
   const [dataService, setDataService] = useState([]);
   const [switchValue, setSwitchValue] = useState(false);
@@ -76,6 +77,8 @@ function AddEditUser({ onSuccess, openModal, data, onOpenChange }) {
         message.success("Cập nhật người dùng thành công");
         onSuccess();
       } else if (res?.data?.error?.statusCode === 2) {
+        // message.error(res?.data?.error?.message);
+
         {
           res?.data?.error?.errorDetailList.map((e) =>
             message.error(e.message)
@@ -98,6 +101,9 @@ function AddEditUser({ onSuccess, openModal, data, onOpenChange }) {
       notification.error({ message: "Tải file lên không thành công!" });
     }
   };
+
+  // console.log("listFile", listFile);
+  // console.log("fieldFile", fieldFile);
 
   useEffect(() => {
     handleGetRole();
@@ -156,6 +162,7 @@ function AddEditUser({ onSuccess, openModal, data, onOpenChange }) {
             width="md"
             name="password"
             label="Mật khẩu"
+            initialValue={data?.userId ? "ko nhập " : ""}
             placeholder="Mật khẩu"
             rules={[
               {
@@ -223,9 +230,11 @@ function AddEditUser({ onSuccess, openModal, data, onOpenChange }) {
           />
           <ProFormUploadButton
             name="avatar"
+            initialValue={data?.userId ? data.avatar : ""}
             label="Avatar"
             title="Click to upload"
             fileList={listFile}
+            // fileList={}
             transform={(value) => {
               return {
                 avatar: fieldFile || "", // cập nhật không upload file mới thì lấy giá trị value trong form
@@ -243,7 +252,7 @@ function AddEditUser({ onSuccess, openModal, data, onOpenChange }) {
                 console.log("file:: ", file);
               },
             }}
-            action="http://fita1.vnua.edu.vn/file/upload"
+            action="https://api.edustar.com.vn/file/upload"
           />
           <ProFormSelect
             width="md"
@@ -259,16 +268,27 @@ function AddEditUser({ onSuccess, openModal, data, onOpenChange }) {
               },
             ]}
           />
+          {/* dataService.map((name) => {
+                    return name.label;
+                  })
+                  data?.userId ? dataService : undefined 
+                */}
           <ProFormSelect
             width="md"
             name="services"
-            initialValue={
-              data?.userId
-                ? data?.services.map((service) => {
-                    return service.name;
-                  })
-                : null
-            }
+            // convertValue={(value) => {
+            //   console.log("value", value);
+            //   if (data?.userId) {
+            //     const name = value.map((name) => {
+            //       console.log("name", name);
+            //       return {
+            //         label: name.name,
+            //         value: name.id,
+            //       };
+            //     });
+            //     return name;
+            //   }
+            // }}
             mode="multiple"
             options={dataService}
             label="Dịch vụ"

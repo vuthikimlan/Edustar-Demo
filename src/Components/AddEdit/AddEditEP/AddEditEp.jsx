@@ -19,6 +19,7 @@ import _ from "lodash";
 import "../style.css";
 
 function AddEditEp({ onSuccess, openModal, data, onOpenChange }) {
+  console.log("data", data);
   const [listFile, setListFile] = useState([]);
   const [fieldFile, setFieldFile] = useState("");
   const formRef = useRef(null);
