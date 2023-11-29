@@ -162,7 +162,7 @@ function AddEditDocument({ onSuccess, openModal, data, onOpenChange }) {
                 console.log("file:: ", file);
               },
             }}
-            action="https://api.edustar.com.vn/file/upload"
+            action="process.env.BASE_URL/file/upload"
           />
           <ProFormUploadButton
             width="md"
@@ -193,7 +193,7 @@ function AddEditDocument({ onSuccess, openModal, data, onOpenChange }) {
                 console.log("file:: ", file);
               },
             }}
-            action="https://api.edustar.com.vn/file/upload"
+            action="process.env.BASE_URL/file/upload"
           />
         </ProForm.Group>
       </ModalForm>

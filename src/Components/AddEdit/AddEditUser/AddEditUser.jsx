@@ -77,8 +77,6 @@ function AddEditUser({ onSuccess, openModal, data, onOpenChange }) {
         message.success("Cập nhật người dùng thành công");
         onSuccess();
       } else if (res?.data?.error?.statusCode === 2) {
-        // message.error(res?.data?.error?.message);
-
         {
           res?.data?.error?.errorDetailList.map((e) =>
             message.error(e.message)
@@ -101,9 +99,6 @@ function AddEditUser({ onSuccess, openModal, data, onOpenChange }) {
       notification.error({ message: "Tải file lên không thành công!" });
     }
   };
-
-  // console.log("listFile", listFile);
-  // console.log("fieldFile", fieldFile);
 
   useEffect(() => {
     handleGetRole();
@@ -158,11 +153,11 @@ function AddEditUser({ onSuccess, openModal, data, onOpenChange }) {
               },
             ]}
           />
+          {/* {!data.userId && ( */}
           <ProFormText
             width="md"
             name="password"
             label="Mật khẩu"
-            initialValue={data?.userId ? "ko nhập " : ""}
             placeholder="Mật khẩu"
             rules={[
               {
@@ -171,6 +166,7 @@ function AddEditUser({ onSuccess, openModal, data, onOpenChange }) {
               },
             ]}
           />
+          {/* )} */}
           <ProFormDatePicker
             width="md"
             name="dateOfBirth"
@@ -248,11 +244,9 @@ function AddEditUser({ onSuccess, openModal, data, onOpenChange }) {
               multiple: true,
               onRemove: () => setListFile([]),
               openFileDialogOnClick: true,
-              onChange: (file) => {
-                console.log("file:: ", file);
-              },
+              onChange: (file) => {},
             }}
-            action="https://api.edustar.com.vn/file/upload"
+            action="process.env.BASE_URL/file/upload"
           />
           <ProFormSelect
             width="md"
@@ -268,24 +262,46 @@ function AddEditUser({ onSuccess, openModal, data, onOpenChange }) {
               },
             ]}
           />
-          {/* dataService.map((name) => {
-                    return name.label;
-                  })
-                  data?.userId ? dataService : undefined 
-                */}
+
           <ProFormSelect
             width="md"
             name="services"
+            convertValue={(value) => {
+              if (value?.at(0)?.name) {
+                const list = value.map((val) => {
+                  return {
+                    value: val?.id,
+                    label: val?.title,
+                  };
+                });
+                return list;
+              } else {
+                return value;
+              }
+            }}
+            transform={(value) => {
+              console.log("value:: ", value);
+
+              if (value?.at(0)?.name) {
+                console.log("true");
+                const list = value.map((val) => val?.id);
+                return {
+                  services: list,
+                };
+              } else {
+                return { services: value };
+              }
+            }}
             // convertValue={(value) => {
             //   console.log("value", value);
             //   if (data?.userId) {
             //     const name = value.map((name) => {
-            //       console.log("name", name);
             //       return {
             //         label: name.name,
             //         value: name.id,
             //       };
             //     });
+            //     console.log("name", name);
             //     return name;
             //   }
             // }}
