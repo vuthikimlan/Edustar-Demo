@@ -19,6 +19,7 @@ function HomePageStatistic(props) {
 
         getAllUserResponse().then((res) => {
           // console.log(res.data.data.items);
+          console.log("data in statistic : " , res);
           setData(res?.data?.data?.items);
         });
     }else if(selectKey ===2 ){
