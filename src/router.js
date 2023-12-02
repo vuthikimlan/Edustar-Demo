@@ -1,5 +1,6 @@
 
 
+
 import { createBrowserRouter } from "react-router-dom";
 import PageETest from "./Page/PageETest/PageETest";
 import Login from "./Page/Login/Login";
@@ -43,6 +44,7 @@ import ShowResponseUsers from "./Page/ResponseUser/ShowResponseUsers";
 import HomePageStatistic from "./Page/Statistics/HomePageStatistic";
 import DetailExamresults from "./Page/Exam/DetailExamresults";
 import StatisticExam from "./Page/Statistics/StatisticExam";
+import CollapseExam from "./Page/MockTest/CollapseExam";
 // import Editor from "./Components/CKEditor/CKEditor";
 
 export const router = createBrowserRouter([
@@ -270,8 +272,20 @@ export const router = createBrowserRouter([
         element: <AddSectionToExam />,
       },
       {
+        path : "detail-exam/:examId" ,
+        element : <CollapseExam/>
+      },
+      {
+        path : "detail-exam/:examId" ,
+        element : <CollapseExam/>
+      },
+      {
         path: "infor-exam",
         element: <InforExams />,
+      },
+      {
+        path : "detail-exam/:examId" ,
+        element : <CollapseExam/>
       },
       {
         path: "statistics/:responseId",
