@@ -271,14 +271,7 @@ export const router = createBrowserRouter([
         path: `add-section/:id`,
         element: <AddSectionToExam />,
       },
-      {
-        path : "detail-exam/:examId" ,
-        element : <CollapseExam/>
-      },
-      {
-        path : "detail-exam/:examId" ,
-        element : <CollapseExam/>
-      },
+     
       {
         path: "infor-exam",
         element: <InforExams />,
