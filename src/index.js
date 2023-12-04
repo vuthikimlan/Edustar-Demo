@@ -8,18 +8,21 @@ import { RouterProvider } from "react-router-dom";
 import { router } from "./router";
 import vinVN from "antd/locale/vi_VN";
 import AppProvider from "./Components/AppContext/AppContext";
+import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 // import vinVN from "@ant-design/pro-components"
+const queryClient = new QueryClient();
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
-  <React.StrictMode>
+  // <React.StrictMode>
+    <QueryClientProvider client={queryClient}>
       <ConfigProvider locale={vinVN}>
         <AppProvider>
-        <RouterProvider router={router} />
+          <RouterProvider router={router} />
         </AppProvider>
       </ConfigProvider>
-  
-  </React.StrictMode>
+    </QueryClientProvider>
+  // </React.StrictMode>
 );
 
 // If you want to start measuring performance in your app, pass a function

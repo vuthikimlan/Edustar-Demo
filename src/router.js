@@ -1,3 +1,6 @@
+
+
+
 import { createBrowserRouter } from "react-router-dom";
 import PageETest from "./Page/PageETest/PageETest";
 import Login from "./Page/Login/Login";
@@ -41,7 +44,7 @@ import ShowResponseUsers from "./Page/ResponseUser/ShowResponseUsers";
 import HomePageStatistic from "./Page/Statistics/HomePageStatistic";
 import DetailExamresults from "./Page/Exam/DetailExamresults";
 import StatisticExam from "./Page/Statistics/StatisticExam";
-import ChangePassword from "./Components/Modal/ChangePassword";
+import CollapseExam from "./Page/MockTest/CollapseExam";
 // import Editor from "./Components/CKEditor/CKEditor";
 
 export const router = createBrowserRouter([
@@ -69,10 +72,6 @@ export const router = createBrowserRouter([
           {
             path: "recorduser",
             element: <RecordUser />,
-          },
-          {
-            path: "changePassword",
-            element: <ChangePassword />,
           },
         ],
       },
@@ -272,9 +271,14 @@ export const router = createBrowserRouter([
         path: `add-section/:id`,
         element: <AddSectionToExam />,
       },
+     
       {
         path: "infor-exam",
         element: <InforExams />,
+      },
+      {
+        path : "detail-exam/:examId" ,
+        element : <CollapseExam/>
       },
       {
         path: "statistics/:responseId",

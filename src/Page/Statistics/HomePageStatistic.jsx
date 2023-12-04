@@ -18,7 +18,8 @@ function HomePageStatistic(props) {
     if(selectKey ===1 ){
 
         getAllUserResponse().then((res) => {
-          console.log(res.data.data.items);
+          // console.log(res.data.data.items);
+          console.log("data in statistic : " , res);
           setData(res?.data?.data?.items);
         });
     }else if(selectKey ===2 ){
@@ -65,7 +66,7 @@ function HomePageStatistic(props) {
 //     }
 //   };
   return (
-    <div className="mx-5">
+    <div className="px-5 overflow-auto h-[100vh] ">
       <div className="flex w-full items-center justify-around my-5">
         <Search
           placeholder="input search text"

@@ -1,8 +1,15 @@
 import Cookies from "js-cookie";
 import axios from "axios";
 
-const base_url = "https://api.edustar.com.vn"
-// const base_url = "https://c428-118-70-132-104.ngrok-free.app"
+//   baseURL: "https://752f-118-70-132-104.ngrok-free.app",
+//   headers: { 
+//     "ngrok-skip-browser-warning": "1",
+//     Authorization: `Bearer ${jwt}`
+// },
+
+// const base_url = "https://edustar-app-demo-5bad83017071.herokuapp.com"
+// const base_url = "http://localhost:8088"
+const base_url = "https://service.edustar.com.vn"
 
 const login_path = "/auth/login"
 
