@@ -1,4 +1,13 @@
-import { Button, Dropdown, Form, Input, Popover, Space, Table, notification } from "antd";
+import {
+  Button,
+  Dropdown,
+  Form,
+  Input,
+  Popover,
+  Space,
+  Table,
+  notification,
+} from "antd";
 import React, { useContext, useEffect, useState } from "react";
 import {
   filterUserResponseByCondition,
@@ -69,23 +78,30 @@ function ShowResponseUsers(props) {
   const onFinish = (values) => {
     // console.log("values ", {values.email , values.examName , isSort});
     const data = {
-     email :  values.email ,examName : values.examName , isSort
-    }
+      email: values.email,
+      examName: values.examName,
+      isSort,
+    };
     console.log(data);
-    filterUserResponseByCondition(data).then((res)=>{
-      console.log("Data respone " ,res?.data?.body);
+    filterUserResponseByCondition(data)
+      .then((res) => {
+        console.log("Data respone ", res?.data?.body);
 
-      if(res?.data?.body?.success == true && res?.data?.body?.data?.total != 0 ){
-        setData1(res?.data?.body?.data?.items)
-        console.log("Ok rồi đấy ");
-        console.log(res?.data?.body?.data?.items);
-      }else{
-        notification.error({message : "Không có dữ liệu"})
-      }
-    }).catch((err)=>{
-      console.log(err);
-    })
-    form.resetFields()
+        if (
+          res?.data?.body?.success == true &&
+          res?.data?.body?.data?.total != 0
+        ) {
+          setData1(res?.data?.body?.data?.items);
+          console.log("Ok rồi đấy ");
+          console.log(res?.data?.body?.data?.items);
+        } else {
+          notification.error({ message: "Không có dữ liệu" });
+        }
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+    form.resetFields();
   };
 
   const content = (
@@ -131,7 +147,7 @@ function ShowResponseUsers(props) {
           <div className="flex">
             <Button
               className=" ml-auto block bg-orange-600 text-yellow-50"
-              onClick={() => [setOpen(false) , form.resetFields()]}
+              onClick={() => [setOpen(false), form.resetFields()]}
             >
               Hủy lọc
             </Button>
@@ -149,7 +165,7 @@ function ShowResponseUsers(props) {
   );
 
   return (
-    <div>
+    <div className="overflow-auto h-[100vh]">
       <h2 className="text-center text-xl text-orange-500 uppercase font-medium mb-10">
         trang quản lý bài thi của học viên{" "}
       </h2>
@@ -163,7 +179,7 @@ function ShowResponseUsers(props) {
         <Button icon={<FilterOutlined />} onClick={() => setOpen(true)} />
       </Popover>
 
-      <Table dataSource={data1} className="text-center">
+      <Table dataSource={data1} className="text-center ">
         <Column align="center" title="Email" dataIndex="email" key="nameExam" />
         <Column
           align="center"
@@ -181,6 +197,11 @@ function ShowResponseUsers(props) {
           align="center"
           title="Số lần đã thi"
           dataIndex="count"
+          render={(_, record) => (
+            <>
+              <h2>{record?.count + 1}</h2>
+            </>
+          )}
           key="count"
         />
         <Column

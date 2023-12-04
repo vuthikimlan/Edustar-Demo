@@ -56,7 +56,7 @@ function InforExams(props) {
   };
 
   return (
-    <div className="px-[5%] bg-white">
+    <div className="px-[5%] bg-white overflow-auto h-[100vh]">
       <div className="grid grid-cols-3 gap-12  pt-10 mb-20">
         {/* <Button onClick={handleTest}>Click</Button> */}
         <Button

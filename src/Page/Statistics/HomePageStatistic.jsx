@@ -66,7 +66,7 @@ function HomePageStatistic(props) {
 //     }
 //   };
   return (
-    <div className="mx-5">
+    <div className="px-5 overflow-auto h-[100vh] ">
       <div className="flex w-full items-center justify-around my-5">
         <Search
           placeholder="input search text"
