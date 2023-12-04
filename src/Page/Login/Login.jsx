@@ -19,15 +19,17 @@ function Login(props) {
           message.success("Đăng nhập thành công");
           setLoading(false);
         }
-        if (res?.data?.success === false) {
-          navgate("/");
+        if (res?.data?.error?.success === false) {
           message.error("Hết phiên đăng nhập");
+          navgate("/");
         }
         const checkPermission = res?.data?.data?.roles?.at(0);
         if (checkPermission === "ADMIN") {
           navgate("/adminpage/user");
-        } else {
+        } else if (checkPermission === "STAFF") {
           navgate("/adminpage/customer");
+        } else {
+          message.error("Bạn không có quyền đăng nhập");
         }
       })
       .finally(() => {
@@ -40,7 +42,7 @@ function Login(props) {
   return (
     <div className="relative flex h-[100vh]">
       <div>
-        <img src={pic} alt="" className="w-[42rem] h-[43rem] " />
+        <img src={pic} alt="" className="w-[42rem] h-[100vh] " />
       </div>
       <Form
         className="login_form"

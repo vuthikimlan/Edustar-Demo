@@ -153,20 +153,20 @@ function AddEditUser({ onSuccess, openModal, data, onOpenChange }) {
               },
             ]}
           />
-          {/* {!data.userId && ( */}
-          <ProFormText
-            width="md"
-            name="password"
-            label="Mật khẩu"
-            placeholder="Mật khẩu"
-            rules={[
-              {
-                required: true,
-                message: "Vui lòng nhập mật khẩu ",
-              },
-            ]}
-          />
-          {/* )} */}
+          {!data.userId && (
+            <ProFormText
+              width="md"
+              name="password"
+              label="Mật khẩu"
+              placeholder="Mật khẩu"
+              rules={[
+                {
+                  required: true,
+                  message: "Vui lòng nhập mật khẩu ",
+                },
+              ]}
+            />
+          )}
           <ProFormDatePicker
             width="md"
             name="dateOfBirth"

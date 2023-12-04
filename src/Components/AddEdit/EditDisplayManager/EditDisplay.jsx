@@ -17,6 +17,17 @@ function EditDisplay({ onSuccess, openModal, data, onOpenChange }) {
   const [fieldFile, setFieldFile] = useState("");
   const formRef = useRef(null);
 
+  const dataStep = "";
+
+  // if (data.id) {
+  //   console.log("data", data);
+  //   const hiddenUpload = (image) => {
+  //     const data = image.startsWith("BƯỚC");
+  //     return (dataStep = data);
+  //   };
+  //   return hiddenUpload();
+  // }
+
   const handleUpdateDisplay = (values) => {
     updateDisplay(data?.id, values).then((res) => {
       if (res?.data?.success) {
@@ -79,30 +90,32 @@ function EditDisplay({ onSuccess, openModal, data, onOpenChange }) {
             5: "HOME",
           }}
         />
-        <ProFormUploadButton
-          name="image"
-          title="Click to upload"
-          label="Upload ảnh"
-          fileList={listFile}
-          transform={(value) => {
-            return {
-              image: fieldFile || "", // cập nhật không upload file mới thì lấy giá trị value trong form
-            };
-          }}
-          fieldProps={{
-            listType: "picture-card",
-            method: "POST",
-            name: "file",
-            customRequest: handleUpload,
-            multiple: true,
-            onRemove: () => setListFile([]),
-            openFileDialogOnClick: true,
-            onChange: (file) => {
-              console.log("file:: ", file);
-            },
-          }}
-          action="process.env.BASE_URL/file/upload"
-        />
+        {!(data.image && data.image.startsWith("BƯỚC")) && (
+          <ProFormUploadButton
+            name="image"
+            title="Click to upload"
+            label="Upload ảnh"
+            fileList={listFile}
+            transform={(value) => {
+              return {
+                image: fieldFile || "", // cập nhật không upload file mới thì lấy giá trị value trong form
+              };
+            }}
+            fieldProps={{
+              listType: "picture-card",
+              method: "POST",
+              name: "file",
+              customRequest: handleUpload,
+              multiple: true,
+              onRemove: () => setListFile([]),
+              openFileDialogOnClick: true,
+              onChange: (file) => {
+                console.log("file:: ", file);
+              },
+            }}
+            action="process.env.BASE_URL/file/upload"
+          />
+        )}
       </ModalForm>
     </>
   );

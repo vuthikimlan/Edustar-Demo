@@ -34,7 +34,7 @@ function CollapseExam({ dataItems }) {
   const [isDeletedExam, setIsDeletedExam] = useState(false);
   const [listExam, setListExam] = useState([]);
   const navigate = useNavigate();
-  const {isUpdateExam} = data
+  const { isUpdateExam } = data;
 
   console.log("dataItems : ", dataItems);
   const handleGetDataExam = async () => {
@@ -253,12 +253,12 @@ function CollapseExam({ dataItems }) {
     console.log(dataItems);
     handleSetItems(dataItems);
     // handleGetDataExam();
-    if(isUpdateExam){
-      handleGetDataExam()
-      dispatch({type : "updateExam"})
+    if (isUpdateExam) {
+      handleGetDataExam();
+      dispatch({ type: "updateExam" });
     }
-  }, [dataItems , isUpdateExam]);
-  
+  }, [dataItems, isUpdateExam]);
+
   // if()
 
   const onChange = (key) => {
