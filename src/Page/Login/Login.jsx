@@ -19,7 +19,11 @@ function Login(props) {
           message.success("Đăng nhập thành công");
           setLoading(false);
         }
-        if (res?.data?.error?.success === false) {
+        if (res?.data?.error?.statusCode === 500) {
+          message.error(res?.data?.error?.message);
+          navgate("/");
+        }
+        if (res?.data?.error?.statusCode === 3) {
           message.error("Hết phiên đăng nhập");
           navgate("/");
         }

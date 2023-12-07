@@ -230,7 +230,6 @@ function AddEditUser({ onSuccess, openModal, data, onOpenChange }) {
             label="Avatar"
             title="Click to upload"
             fileList={listFile}
-            // fileList={}
             transform={(value) => {
               return {
                 avatar: fieldFile || "", // cập nhật không upload file mới thì lấy giá trị value trong form
@@ -292,19 +291,6 @@ function AddEditUser({ onSuccess, openModal, data, onOpenChange }) {
                 return { services: value };
               }
             }}
-            // convertValue={(value) => {
-            //   console.log("value", value);
-            //   if (data?.userId) {
-            //     const name = value.map((name) => {
-            //       return {
-            //         label: name.name,
-            //         value: name.id,
-            //       };
-            //     });
-            //     console.log("name", name);
-            //     return name;
-            //   }
-            // }}
             mode="multiple"
             options={dataService}
             label="Dịch vụ"

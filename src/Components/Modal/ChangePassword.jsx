@@ -11,7 +11,6 @@ function ChangePassword({ onCancel }) {
     changepassword(values).then((res) => {
       if (res?.data?.success) {
         message.success(`${res?.data?.data}`);
-        // router.push("/user");
         onCancel();
         form.resetFields();
       } else if (res?.data?.error?.statusCode === 500) {
