@@ -13,6 +13,7 @@ import {
   createUser,
   getAllRole,
   getListService,
+  getProfileUser,
   updateUser,
   uploadFile,
 } from "../../../Services/lead";
@@ -22,8 +23,8 @@ import "../style.css";
 import _ from "lodash";
 
 function AddEditUser({ onSuccess, openModal, data, onOpenChange }) {
-  console.log("data", data);
   const [dataRole, setDataRole] = useState([]);
+  const [role, setRole] = useState({});
   const [dataService, setDataService] = useState([]);
   const [switchValue, setSwitchValue] = useState(false);
   const [listFile, setListFile] = useState([]);
@@ -41,6 +42,26 @@ function AddEditUser({ onSuccess, openModal, data, onOpenChange }) {
       });
       setDataRole(options);
     });
+  };
+
+  const handleGetProfileUser = () => {
+    getProfileUser().then((res) => {
+      setRole(res?.data?.data);
+    });
+  };
+  const checkPermission = role?.role?.roleId === "STAFF";
+
+  const getRoleOptions = (userRole) => {
+    if (userRole) {
+      return [
+        {
+          label: "CUSTOMER",
+          value: "CUSTOMER",
+        },
+      ];
+    } else {
+      return dataRole;
+    }
   };
 
   const handleGetService = () => {
@@ -61,11 +82,22 @@ function AddEditUser({ onSuccess, openModal, data, onOpenChange }) {
     createUser(values).then((res) => {
       if (res?.data?.success === true) {
         message.success("Tạo người dùng thành công");
+
         onSuccess();
       } else if (res?.data?.error?.statusCode === 500) {
-        message.error(res?.data?.error?.message);
+        message.open({
+          type: "error",
+          content: res?.data?.error?.message,
+          duration: 10,
+        });
       } else if (res?.data?.error?.statusCode === 2) {
-        res?.data?.error?.errorDetailList.map((e) => message.error(e.message));
+        res?.data?.error?.errorDetailList.map((e) =>
+          message.open({
+            type: "error",
+            content: e.message,
+            duration: 20,
+          })
+        );
       }
     });
   };
@@ -79,11 +111,19 @@ function AddEditUser({ onSuccess, openModal, data, onOpenChange }) {
       } else if (res?.data?.error?.statusCode === 2) {
         {
           res?.data?.error?.errorDetailList.map((e) =>
-            message.error(e.message)
+            message.open({
+              type: "error",
+              content: e.message,
+              duration: 20,
+            })
           );
         }
       } else if (res?.data?.error?.statusCode === 500) {
-        message.error(res?.data?.error?.message);
+        message.open({
+          type: "error",
+          content: res?.data?.error?.message,
+          duration: 10,
+        });
       }
     });
   };
@@ -103,6 +143,7 @@ function AddEditUser({ onSuccess, openModal, data, onOpenChange }) {
   useEffect(() => {
     handleGetRole();
     handleGetService();
+    handleGetProfileUser();
   }, []);
 
   return (
@@ -251,7 +292,8 @@ function AddEditUser({ onSuccess, openModal, data, onOpenChange }) {
             width="md"
             name="roleId"
             initialValue={data?.userId ? data?.role?.name : ""}
-            options={dataRole}
+            // options={dataRole}
+            options={getRoleOptions(checkPermission)}
             label="Mã vai trò"
             placeholder="Mã vai trò"
             rules={[

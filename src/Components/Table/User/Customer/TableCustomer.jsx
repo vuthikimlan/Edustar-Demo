@@ -197,6 +197,14 @@ function TableCustomer(props) {
         title={`Tất cả khách hàng:  ${total} khách hàng`}
         extra={[
           <div className="flex">
+            <Button
+              className="bg-1677ff text-white hover:bg-white mr-[10px]"
+              onClick={() => {
+                setOpenModal(true);
+              }}
+            >
+              + Thêm khách hàng
+            </Button>
             <Popover
               content={
                 <FilterUser
@@ -215,6 +223,7 @@ function TableCustomer(props) {
                 Lọc
               </Button>
             </Popover>
+
             <Button
               icon={<DownloadOutlined />}
               onClick={hanldeExportFile}
