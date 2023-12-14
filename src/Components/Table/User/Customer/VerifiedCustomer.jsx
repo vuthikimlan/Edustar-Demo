@@ -56,7 +56,9 @@ function VerifiedCustomer(props) {
 
   const handleGetCustomer = () => {
     getListUser().then((res) => {
-      setData(res.data?.data?.items);
+      const data1 = res.data?.data?.items;
+      const sortedData = data1.sort((a, b) => b.userId - a.userId);
+      setData(sortedData);
     });
   };
 

@@ -95,7 +95,7 @@ function AddEditUser({ onSuccess, openModal, data, onOpenChange }) {
           message.open({
             type: "error",
             content: e.message,
-            duration: 20,
+            duration: 15,
           })
         );
       }
@@ -321,8 +321,6 @@ function AddEditUser({ onSuccess, openModal, data, onOpenChange }) {
               }
             }}
             transform={(value) => {
-              console.log("value:: ", value);
-
               if (value?.at(0)?.name) {
                 console.log("true");
                 const list = value.map((val) => val?.id);
@@ -345,8 +343,10 @@ function AddEditUser({ onSuccess, openModal, data, onOpenChange }) {
             ]}
           />
           <ProFormSwitch
-            name="isVerified"
+            name="verified"
             label="Xác thực Email"
+            // defaultChecked={data.verified}
+            initialValue={data.verified}
             fieldProps={{
               onChange: (checked) => {
                 setSwitchValue(checked);

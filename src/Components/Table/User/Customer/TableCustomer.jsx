@@ -91,7 +91,9 @@ function TableCustomer(props) {
 
   const getCustomer = (values) => {
     filterCustomer(values).then((res) => {
-      setDataCustomer(res.data?.data?.items);
+      const data = res.data?.data?.items;
+      const sortedData = data.sort((a, b) => b.userId - a.userId);
+      setDataCustomer(sortedData);
       setTotal(res?.data?.data?.total);
     });
   };
@@ -191,6 +193,7 @@ function TableCustomer(props) {
       ),
     },
   ];
+
   return (
     <div>
       <PageContainer
@@ -326,7 +329,6 @@ function TableCustomer(props) {
           scroll={{
             y: 413,
           }}
-          x
           loading={loading}
         />
         <div

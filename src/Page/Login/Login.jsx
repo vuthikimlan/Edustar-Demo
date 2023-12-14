@@ -15,9 +15,20 @@ function Login(props) {
     login(values)
       .then((res) => {
         if (res?.data?.success === true) {
-          Cookies.set("jwt", res?.data?.data?.jwt);
-          message.success("Đăng nhập thành công");
-          setLoading(false);
+          const checkPermission = res?.data?.data?.roles?.at(0);
+          if (checkPermission === "ADMIN") {
+            Cookies.set("jwt", res?.data?.data?.jwt);
+            message.success("Đăng nhập thành công");
+            setLoading(false);
+            navgate("/adminpage/user");
+          } else if (checkPermission === "STAFF") {
+            Cookies.set("jwt", res?.data?.data?.jwt);
+            message.success("Đăng nhập thành công");
+            setLoading(false);
+            navgate("/adminpage/customer");
+          } else {
+            message.error("Bạn không có quyền đăng nhập");
+          }
         }
         if (res?.data?.error?.statusCode === 500) {
           message.error(res?.data?.error?.message);
@@ -26,14 +37,6 @@ function Login(props) {
         if (res?.data?.error?.statusCode === 3) {
           message.error("Hết phiên đăng nhập");
           navgate("/");
-        }
-        const checkPermission = res?.data?.data?.roles?.at(0);
-        if (checkPermission === "ADMIN") {
-          navgate("/adminpage/user");
-        } else if (checkPermission === "STAFF") {
-          navgate("/adminpage/customer");
-        } else {
-          message.error("Bạn không có quyền đăng nhập");
         }
       })
       .finally(() => {
