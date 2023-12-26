@@ -63,7 +63,8 @@ function VerifiedCustomer(props) {
   };
 
   const verifiedCustomer = data.filter(
-    (customer) => customer?.verified === true
+    (customer) =>
+      customer?.verified === true && customer?.role?.roleId === "CUSTOMER"
   );
   // Hàm xóa từng người dùng
   const handleDelete = (userId) => {

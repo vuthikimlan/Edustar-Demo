@@ -42,7 +42,7 @@ function TableCustomer(props) {
   const [total, setTotal] = useState();
   const navigate = useNavigate();
   const { confirm } = Modal;
-  const jwt = Cookies.get("jwt");
+  const token = Cookies.get("token");
 
   const onSelectChange = (newSelectedRowKeys) => {
     setSelectedRowKeys(newSelectedRowKeys);
@@ -251,7 +251,7 @@ function TableCustomer(props) {
                 multiple: false,
                 showUploadList: false,
                 headers: {
-                  Authorization: jwt ? `Bearer ${jwt}` : undefined,
+                  Authorization: token ? `Bearer ${token}` : undefined,
                 },
                 onChange: (file) => {
                   console.log(file);
@@ -286,7 +286,7 @@ function TableCustomer(props) {
                   }
                 },
               }}
-              action="http://fita1.vnua.edu.vn/excel/import"
+              action="https://service.edustar.com.vn/excel/import"
             />
           </div>,
         ]}

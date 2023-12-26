@@ -117,7 +117,6 @@ function TableUser(props) {
   const handleSearchUser = (values) => {
     filterUser({
       name: values,
-      // name: values,
     }).then((res) => {
       if (res.status === 200) {
         setDataUser(res?.data?.data?.items);

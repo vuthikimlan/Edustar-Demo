@@ -17,12 +17,12 @@ function Login(props) {
         if (res?.data?.success === true) {
           const checkPermission = res?.data?.data?.roles?.at(0);
           if (checkPermission === "ADMIN") {
-            Cookies.set("jwt", res?.data?.data?.jwt);
+            Cookies.set("token", res?.data?.data?.jwt);
             message.success("Đăng nhập thành công");
             setLoading(false);
             navgate("/adminpage/user");
           } else if (checkPermission === "STAFF") {
-            Cookies.set("jwt", res?.data?.data?.jwt);
+            Cookies.set("token", res?.data?.data?.jwt);
             message.success("Đăng nhập thành công");
             setLoading(false);
             navgate("/adminpage/customer");
